@@ -122,6 +122,11 @@ def main():
     help="Factor shipping costs into reserve price and look for items with a shipping price",
 )
 @click.option(
+    "--amazon-us-only",
+    is_flag=True,
+    help="Only purchase from Amazon as a seller.",
+)
+@click.option(
     "--detailed",
     is_flag=True,
     help="Take more screenshots. !!!!!! This could cause you to miss checkouts !!!!!!",
@@ -197,6 +202,7 @@ def amazon(
     test,
     delay,
     checkshipping,
+    amazon_us_only,
     detailed,
     used,
     single_shot,
@@ -231,6 +237,7 @@ def amazon(
         headless=headless,
         notification_handler=notification_handler,
         checkshipping=checkshipping,
+        amazon_us_only=amazon_us_only,
         detailed=detailed,
         used=used,
         single_shot=single_shot,

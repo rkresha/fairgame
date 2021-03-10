@@ -98,6 +98,7 @@ class Amazon:
         notification_handler,
         headless=False,
         checkshipping=False,
+        amazon_us_only=False,
         detailed=False,
         used=False,
         single_shot=False,
@@ -116,6 +117,7 @@ class Amazon:
         self.reserve_max = []
         self.checkshipping = checkshipping
         self.button_xpaths = BUTTON_XPATHS
+        self.amazon_us_only = amazon_us_only
         self.detailed = detailed
         self.used = used
         if used:
@@ -461,7 +463,10 @@ class Amazon:
                     )
         else:
             # Force the flyout by default
-            f = furl(self.ACTIVE_OFFER_URL + asin + "/#aod")
+            if self.amazon_us_only:
+                f = furl(self.ACTIVE_OFFER_URL + asin + "/?tag=nisdis-20&m=ATVPDKIKX0DER#aod")
+            else:
+                f = furl(self.ACTIVE_OFFER_URL + asin + "/#aod")
         fail_counter = 0
         presence.searching_update()
 
