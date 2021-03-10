@@ -548,7 +548,7 @@ class Amazon:
                 offer_id = offers.get_attribute("id")
                 if offer_id == "outOfStock" or offer_id == "backInStock":
                     # No dice... Early out and move on
-                    log.info("Item is currently unavailable.  Moving on...")
+                    log.info(f"Item is currently unavailable for {asin}.  Moving on...")
                     return False
 
                 if offer_id == "olpOfferList":
@@ -651,7 +651,7 @@ class Amazon:
 
                     return False
                 if len(offer_count) == 0:
-                    log.info("No offers found.  Moving on.")
+                    log.info(f"No offers found for {asin}.  Moving on.")
                     return False
                 log.info(
                     f"Found {len(offer_count)} offers for {asin}.  Evaluating offers..."
@@ -663,7 +663,7 @@ class Amazon:
                 log.exception(te)
                 return False
             except sel_exceptions.NoSuchElementException:
-                log.error("Unable to find any offers listing.  Skipping...")
+                log.error(f"Unable to find any offers listing for {asin}.  Skipping...")
                 return False
             except sel_exceptions.ElementClickInterceptedException as e:
                 log.debug(
@@ -814,7 +814,7 @@ class Amazon:
                 (ship_float + price_float) >= reserve_min
                 or math.isclose((price_float + ship_float), reserve_min, abs_tol=0.01)
             ):
-                log.info("Item in stock and in reserve range!")
+                log.info(f"Item in stock and in reserve range for {asin}!")
                 log.info(f"{price_float} + {ship_float} shipping <= {reserve_max}")
                 log.debug(
                     f"{reserve_min} <= {price_float} + {ship_float} shipping <= {reserve_max}"
@@ -871,7 +871,7 @@ class Amazon:
                     ):
                         return True
                     else:
-                        log.info("did not add to cart, trying again")
+                        log.info(f"did not add {asin} to cart, trying again")
                         if emtpy_cart_elements:
                             log.info(
                                 "Cart appeared empty after clicking Add To Cart button"
