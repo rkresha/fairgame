@@ -34,6 +34,9 @@ options.add_experimental_option(
 options.add_experimental_option("useAutomationExtension", False)
 # CHROME ONLY option to prevent Restore Session popup
 options.add_argument("--disable-session-crashed-bubble")
+# Remove next two lines if undesirable
+options.add_argument("--disk-cache-dir=/dev/null")
+options.add_argument("--disk-cache-size=1")
 selenium_logger.setLevel(logging_WARNING)
 urllib_logger.setLevel(logging_WARNING)
 
@@ -155,3 +158,4 @@ def enable_headless():
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
